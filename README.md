@@ -31,11 +31,11 @@ The `setup_config.py` script is used to create the main configuration file (`con
 
 ### `read_config_and_convert.py`
 
-This script processes the `config.json` file and checks if any robots' names refer to `.stl` or `.urdf` files. If these files are detected, the script verifies whether they exist, then launches a Blender command to convert them to FBX format. This conversion ensures that the robot meshes are compatible with Unreal Engine.
+This script processes the `config.json` file and checks if any robots' names refer to `.sdf` or `.urdf` files. If these files are detected, the script verifies whether they exist, then launches a Blender command to convert them to FBX format. This conversion ensures that the robot meshes are compatible with Unreal Engine.
 
 **Key Features:**
 - Reads the `config.json` file.
-- Identifies robot names that refer to `.stl` or `.urdf` files.
+- Identifies robot names that refer to `.sdf` or `.urdf` files.
 - Checks if the specified files exist.
 - Launches Blender in background mode to convert the files to FBX.
 
@@ -70,7 +70,7 @@ The `setup_config.py` script is used to create a new configuration file (`config
 
 2. **Robot Setup**:
    - You can add one or more robots.
-   - Robot names can be either strings or paths to `.stl` or `.urdf` files.
+   - Robot names can be either strings or paths to `.sdf` or `.urdf` files.
    - Positions for each robot are specified as `[x, y, z]` coordinates (default: `[0, 0, 0]`).
    - You can add default JointStateSubscribers and JointControllers with customizable topics and modes.
 
@@ -91,7 +91,7 @@ Once this information is provided, the configuration is saved in `config.json`.
 
 ## Conversion to FBX
 
-When robot files are specified as `.stl` or `.urdf`, they need to be converted to FBX format for Unreal compatibility. 
+When robot files are specified as `.sdf` or `.urdf`, they need to be converted to FBX format for Unreal compatibility. 
 
 The `read_config_and_convert.py` script is responsible for reading the `config.json` file and checking if any robot names point to such files. If the files exist, the script will:
 
@@ -121,7 +121,7 @@ The Unreal project path is either read from the config file or provided by the u
    cd your-repository
    ```
 
-2. Install **Blender** if you plan to convert `.stl` or `.urdf` files to FBX.
+2. Install **Blender** if you plan to convert `.sdf` or `.urdf` files to FBX.
 
 3. Run the main script to launch the setup, conversion, and Unreal Engine:
    ```bash
@@ -166,11 +166,5 @@ The Unreal project path is either read from the config file or provided by the u
      ```
 
 If no config file is created or found, Unreal is launched without the `--config` parameter.
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---

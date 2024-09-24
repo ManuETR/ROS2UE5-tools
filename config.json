@@ -1,0 +1,63 @@
+{
+    "environment": {
+        "map": "''",
+        "weather": "sunny",
+        "time": "noon"
+    },
+    "robots": [
+        {
+            "robot": "panda",
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "subscribers": [
+                {
+                    "type": "JointStateSubscriber",
+                    "topic": "/joint/states"
+                }
+            ],
+            "controllers": [
+                {
+                    "type": "JointController",
+                    "mode": "kinematic"
+                }
+            ]
+        },
+        {
+            "robot": "panda2",
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "subscribers": [
+                {
+                    "type": "JointStateSubscriber",
+                    "topic": "/joint/states"
+                }
+            ],
+            "controllers": [
+                {
+                    "type": "JointController",
+                    "mode": "kinematic"
+                }
+            ]
+        }
+    ],
+    "ros": {
+        "bridge": {
+            "ip": "127.0.0.1",
+            "port": "9090"
+        }
+    },
+    "logging": {
+        "enable": true,
+        "frequency": 1,
+        "destination": {
+            "type": "Seq",
+            "endpoint": "http://localhost:5341"
+        }
+    }
+}

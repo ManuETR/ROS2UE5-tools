@@ -94,12 +94,16 @@ def create_config():
         }
     }
 
+    unreal_project = get_user_input("Enter the full path to your Unreal project (.uproject file)")
+
+
     # Combine everything into the final config
     config = {
         "environment": environment,
         "robots": robots,
         "ros": ros,
-        "logging": logging
+        "logging": logging,
+        "unreal_project": unreal_project
     }
 
     # Write to JSON file

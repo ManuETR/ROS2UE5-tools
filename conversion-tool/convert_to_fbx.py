@@ -3,6 +3,7 @@ import os
 import bpy
 import sys
 import platform
+import inspect
 
 def clear_console():
     if platform.system() == "Windows":
@@ -45,7 +46,7 @@ def convert_recursive(base_path):
 
         try:
             # Import the STL file
-            if hasattr(bpy.ops.import_mesh, "stl"):
+            if hasattr(bpy.ops.import_mesh, "stl") and inspect.ismethod(getattr(bpy.ops.import_mesh, "stl")):
                 bpy.ops.import_mesh.stl(filepath=filepath_src)
             else:
                 bpy.ops.wm.stl_import(filepath=filepath_src)
@@ -95,7 +96,7 @@ if __name__ == "__main__":
         print(f"Path: {CONVERT_DIR}")
         convert_recursive(CONVERT_DIR)
         
-        clear_console()
+        # clear_console()
 
         for str in output:
             print(str)

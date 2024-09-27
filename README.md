@@ -1,5 +1,5 @@
 <p align="center">
-<img width="322" alt="ROS2UE5" src="https://github.com/user-attachments/assets/3b8fb4f0-2fba-44ae-9528-c8fc1e182ccb" />
+<img width="250" alt="ROS2UE5" src="https://github.com/user-attachments/assets/3b8fb4f0-2fba-44ae-9528-c8fc1e182ccb" />
 </p>
 
 # ROS2UE5-tools

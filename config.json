@@ -6,7 +6,7 @@
     },
     "robots": [
         {
-            "robot": "/home/manuel/Documents/Uni/Bachelor-Thesis/bachelor-thesis/ROS2UE5-tools/robot_descriptions/panda_description/panda.urdf",
+            "robot": "/home/manuel/Documents/Uni/Bachelor-Thesis/bachelor-thesis/ROS2UE5-tools/robot-descriptions/panda_description/panda.urdf",
             "position": [
                 0,
                 0,
@@ -26,7 +26,7 @@
             ]
         },
         {
-            "robot": "/home/manuel/Documents/Uni/Bachelor-Thesis/bachelor-thesis/ROS2UE5-tools/robot_descriptions/universal-robot-ur5/model.sdf",
+            "robot": "/home/manuel/Documents/Uni/Bachelor-Thesis/bachelor-thesis/ROS2UE5-tools/robot-descriptions/universal-robot-ur5/model.sdf",
             "position": [
                 0,
                 0,

@@ -4,7 +4,7 @@ import sys
 import json
 
 # Path to necessary scripts
-SETUP_CONFIG_SCRIPT = "setup/setup_config.py"
+SETUP_CONFIG_SCRIPT = "config-creator/setup_config.py"
 CONVERT_MESH_SCRIPT = "conversion-tool/read_config_and_convert.py"
 CONFIG_FILE = "config.json"
 

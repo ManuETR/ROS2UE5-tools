@@ -16,17 +16,44 @@ This repository contains scripts for setting up and managing configurations for 
 
 ## Table of Contents
 
-1. [Overview of Scripts](#overview-of-scripts)
+1. [Getting Started](#getting-started)
+2. [Overview of Scripts](#overview-of-scripts)
     - [setup_config.py](#setup_configpy)
     - [read_config_and_convert.py](#read_config_and_convertpy)
     - [main_launch.py](#main_launchpy)
-2. [Configuration Process](#configuration-process)
-3. [Conversion to FBX](#conversion-to-fbx)
-4. [Launching Unreal Engine](#launching-unreal-engine)
-5. [How to Use](#how-to-use)
-6. [Example Workflow](#example-workflow)
+3. [Configuration Process](#configuration-process)
+4. [Conversion to FBX](#conversion-to-fbx)
+5. [Launching Unreal Engine](#launching-unreal-engine)
+6. [How to Use](#how-to-use)
+7. [Example Workflow](#example-workflow)
 
 ---
+
+## Getting Started
+
+To quickly set up **ROS2UE5** and all its dependencies, including **ROS2**, **ROS Bridge**, **SeqLog**, and optional tools like **Blender**, follow the steps outlined in our [Setup Guide](SETUP.md). This guide includes a ready-to-use setup script that automates the installation of all required software, making it easy to get started with simulations.
+
+### Quick Setup Instructions
+
+1. Clone this repository and navigate to the project directory:
+   ```bash
+   git clone https://github.com/ManuETR/ROS2UE5-tools.git
+   cd ROS2UE5-tools
+   ```
+
+2. Run the setup script to install all dependencies:
+   ```bash
+   sudo ./setup.sh
+   ```
+
+3. During the installation, you will be asked if you want to install **Blender**, which is required for certain tools. If you're planning to use those tools, choose "Yes" when prompted.
+
+For detailed installation instructions and information about the tools and plugins included in this project, refer to the [Setup Guide](SETUP.md).
+
+### Manual Setup
+
+If you prefer to manually install the dependencies, refer to the step-by-step instructions in the [Setup Guide](SETUP.md) for more information on how to install ROS2, ROS Bridge, and other tools necessary for the **ROS2UE5** plugin.
+
 
 ## Overview of Scripts
 

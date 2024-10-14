@@ -1,0 +1,22 @@
+{
+    "environment": {
+        "map": "PandaGrapMap",
+        "weather": "sunny",
+        "time": "noon"
+    },
+    "robots": [],
+    "ros": {
+        "bridge": {
+            "ip": "127.0.0.1",
+            "port": 9090
+        }
+    },
+    "logging": {
+        "enable": false,
+        "frequency": 1,
+        "destination": {
+            "type": "Seq",
+            "endpoint": "http://localhost:5341"
+        }
+    }
+}

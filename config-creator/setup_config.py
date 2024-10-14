@@ -68,7 +68,7 @@ def ask_add_robot():
 def create_config():
     # Environment setup
     environment = {
-        "map": ask_with_default("Enter the map",  default="''", allowed=None),
+        "map": ask_with_default("Enter the map",  default="PandaMap", allowed=None),
         "weather": ask_with_default("Enter the weather", default="sunny", allowed=["sunny", "cloudy", "rainy", "snow"]),
         "time": ask_with_default("Enter the time of day", default="noon", allowed=["noon", "night"])
     }
@@ -80,7 +80,7 @@ def create_config():
     ros = {
         "bridge": {
             "ip": ask_with_default("Enter the ROS bridge IP", default="127.0.0.1"),
-            "port": ask_with_default("Enter the ROS bridge port", default="9090")
+            "port": int(ask_with_default("Enter the ROS bridge port", default="9090"))
         }
     }
 

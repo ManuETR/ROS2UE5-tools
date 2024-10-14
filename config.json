@@ -1,41 +1,21 @@
 {
     "environment": {
-        "map": "''",
+        "map": "PandaMap",
         "weather": "sunny",
         "time": "noon"
     },
     "robots": [
         {
-            "robot": "/home/manuel/Documents/Uni/Bachelor-Thesis/bachelor-thesis/ROS2UE5-tools/robot-descriptions/panda_description/panda.urdf",
+            "robot": "panda",
             "position": [
                 0,
                 0,
-                0
+                5
             ],
             "subscribers": [
                 {
                     "type": "JointStateSubscriber",
-                    "topic": "/joint/states"
-                }
-            ],
-            "controllers": [
-                {
-                    "type": "JointController",
-                    "mode": "kinematic"
-                }
-            ]
-        },
-        {
-            "robot": "/home/manuel/Documents/Uni/Bachelor-Thesis/bachelor-thesis/ROS2UE5-tools/robot-descriptions/universal-robot-ur5/model.sdf",
-            "position": [
-                0,
-                0,
-                0
-            ],
-            "subscribers": [
-                {
-                    "type": "JointStateSubscriber",
-                    "topic": "/joint/states"
+                    "topic": "/joint_states"
                 }
             ],
             "controllers": [
@@ -49,11 +29,11 @@
     "ros": {
         "bridge": {
             "ip": "127.0.0.1",
-            "port": "9090"
+            "port": 9090
         }
     },
     "logging": {
-        "enable": true,
+        "enable": false,
         "frequency": 1,
         "destination": {
             "type": "Seq",

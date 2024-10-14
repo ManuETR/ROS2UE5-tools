@@ -4,27 +4,53 @@ import time
 import os
 import sys
 import argparse
+import socket
+
+def is_wsl():
+    """Detect if the script is running in a WSL environment."""
+    try:
+        with open("/proc/version", "r") as f:
+            return "microsoft" in f.read().lower()
+    except FileNotFoundError:
+        return False
 
 def read_config(config_file):
     """Read the JSON config file and return the data."""
     with open(config_file, 'r') as f:
         return json.load(f)
 
-def start_rosbridge():
-    """Start ROS Bridge using the appropriate ROS2 launch command."""
-    print("Starting ROS Bridge...")
-    rosbridge_cmd = ["ros2", "launch", "rosbridge_server", "rosbridge_websocket_launch.xml"]
-    return subprocess.Popen(rosbridge_cmd)
+def is_port_in_use(port):
+    """Check if a given port is in use."""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        return s.connect_ex(('localhost', port)) == 0
 
-def start_unreal_engine(unreal_exec_path, ue_project, ue_scenario, iteration):
+def start_rosbridge():
+    """Start ROS Bridge using the appropriate ROS2 launch command if the port is not in use."""
+    rosbridge_port = 9090  # Default port for ROS Bridge WebSocket
+    if is_port_in_use(rosbridge_port):
+        print(f"Port {rosbridge_port} is already in use. ROS Bridge might already be running.")
+    else:
+        print("Starting ROS Bridge...")
+        rosbridge_cmd = ["ros2", "launch", "rosbridge_server", "rosbridge_websocket_launch.xml"]
+        subprocess.Popen(rosbridge_cmd)
+
+def start_unreal_engine(unreal_exec_path, ue_project, ue_scenario, iteration, maxSimTime=10, wsl_mode=False):
     """Start Unreal Engine with the specified project and scenario."""
     print(f"Starting Unreal Engine (iteration {iteration})...")
+    
+    # If running in WSL, adjust the paths for Windows
+    if wsl_mode:
+        unreal_exec_path = unreal_exec_path.replace("C:", "/mnt/c").replace("\\", "/")
+        ue_project = ue_project.replace("/mnt/c", "C:").replace("/", "\\")
+        ue_scenario = ue_scenario.replace("/mnt/c", "C:").replace("/", "\\")
+    
     ue_cmd = [
         unreal_exec_path,  # Unreal Engine executable path
         ue_project,
         f'-config="{ue_scenario}"',
-        "-autostart=true",
-        f"-iteration={iteration}"
+        "-autostart",
+        f"-iteration={iteration}",
+        f"-maxSimTime={maxSimTime}"
     ]
     return subprocess.Popen(ue_cmd)
 
@@ -44,7 +70,7 @@ def start_ros2_launch(ros2_pkg, ros2_launch):
     ros2_cmd = ["ros2", "launch", ros2_pkg, ros2_launch]
     return subprocess.Popen(ros2_cmd)
 
-def run_simulation(simulation, ue_project, unreal_exec_path):
+def run_simulation(simulation, ue_project, unreal_exec_path, wsl_mode):
     """Run the simulation and manage Unreal/ROS processes."""
     iterations = simulation["iterations"]
     ue_scenario = simulation["ueScenario"]
@@ -57,7 +83,7 @@ def run_simulation(simulation, ue_project, unreal_exec_path):
         print(f"\n--- Starting Iteration {i} ---")
         
         # Start Unreal Engine
-        unreal_process = start_unreal_engine(unreal_exec_path, ue_project, ue_scenario, i)
+        unreal_process = start_unreal_engine(unreal_exec_path, ue_project, ue_scenario, i, max_sim_time, wsl_mode)
         wait_for_unreal_to_start(timeout)
 
         # Start ROS2 launch process
@@ -110,14 +136,18 @@ def main():
     # Parse the arguments
     args = parser.parse_args()
 
+    # Check if running in WSL
+    wsl_mode = is_wsl()
+
     # Default Unreal Engine paths for different platforms
     if sys.platform == "win32":
         default_unreal_exec_path = r"C:\Program Files\Epic Games\UE_5.3\Engine\Binaries\Win64\UnrealEditor.exe"
-    elif sys.platform == "linux":
-        default_unreal_exec_path = "/path/to/UnrealEditor"  # Replace this with the actual path on your Linux system
+    elif sys.platform == "linux" or wsl_mode:
+        default_unreal_exec_path = "/mnt/c/Program Files/Epic Games/UE_5.3/Engine/Binaries/Win64/UnrealEditor.exe"
     else:
         print("Unsupported platform. This script only supports Windows and Linux.")
         sys.exit(1)
+
 
     # Use the command-line argument if provided, otherwise use the default path
     unreal_exec_path = args.unreal_path if args.unreal_path else default_unreal_exec_path
@@ -131,13 +161,14 @@ def main():
     try:
         # Iterate over all simulations
         for simulation in config["simulations"]:
-            run_simulation(simulation, config["ueProject"], unreal_exec_path)
+            run_simulation(simulation, config["ueProject"], unreal_exec_path, wsl_mode)
     finally:
         # Ensure that ROS Bridge is stopped at the end
-        if rosbridge_process.poll() is None:
+        if rosbridge_process and rosbridge_process.poll() is None:
             print("Stopping ROS Bridge...")
             rosbridge_process.terminate()
             rosbridge_process.wait()
 
 if __name__ == "__main__":
     main()
+# ros2 launch moveit2_tutorials pick_place_demo.launch.py

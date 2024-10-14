@@ -1,0 +1,15 @@
+{
+    "restartBridge": false,
+    "ueProject": "C:/Users/Manuel/Documents/Unreal Projects/RoboDemo/RoboDemo.uproject",
+    "simulations": [
+        {
+            "iterations": 3,
+            "name": "MoveIt2 Pick and Place Demo",
+            "ueScenario": "\\\\wsl.localhost\\Ubuntu\\home\\manuel\\ROS2UE5-tools\\config_grap.json",
+            "ros2Launch": "pick_place_demo.launch.py",
+            "ros2Pkg": "moveit2_tutorials",
+            "timeout": 8,
+            "maxSimTime": 25
+        }
+    ]
+}
